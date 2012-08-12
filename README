@@ -12,11 +12,6 @@ data/webl12.txt
 	The FEC's latest candidate summary file.
 	ftp://ftp.fec.gov/FEC/2012/webl12.zip
 
-data/results10.csv
-	Get the FEC's 2010 election results summary file, an Excel file,
-	and re-save it in CSV format.
-	http://www.fec.gov/pubrec/fe2010/federalelections2010.shtml
-	
 data/cands12.txt
 	OpenSecret's 2012 campaign financ data file, CampaignFin12.zip.
 	http://www.opensecrets.org/MyOS/bulk.php
@@ -24,6 +19,18 @@ data/cands12.txt
 data/cands10.txt
 	OpenSecret's 2010 campaign financ data file, CampaignFin10.zip.
 	http://www.opensecrets.org/MyOS/bulk.php
+	
+And you'll already find here:
+	
+data/results10.csv
+	The FEC's 2010 election results summary file, an Excel file,
+	re-saved in CSV format, and cleaned up. e.g., removed election
+	info for unexpired terms, senate seats, and extraneous totals.
+	http://www.fec.gov/pubrec/fe2010/federalelections2010.shtml
+	
+data/not_an_incumbent.txt
+	A list of current representatives not running this year, with
+	their reason, sourced from Roll Call.
 	
 Build
 -----

@@ -29,6 +29,7 @@ def start():
 
 	evwsgi.wsgi_cb(('/boundaries/', proxy("http://gis.govtrack.us/boundaries/")))
 	evwsgi.wsgi_cb(('/map/tiles/', proxy("http://gis.govtrack.us/map/tiles/")))
+	evwsgi.wsgi_cb(('/static/rep_photos/', proxy("http://www.govtrack.us/data/photos/")))
 	
 	staticfile = views.Staticfile('static', maxage=2629000)
 	evwsgi.wsgi_cb(('/static', staticfile))

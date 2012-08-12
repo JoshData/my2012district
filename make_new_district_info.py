@@ -31,12 +31,20 @@ else:
 			if "GOVTRACK_INFO" in can:
 				candidate_info[can["FEC_ID"]]["GOVTRACK_INFO"] = can["GOVTRACK_INFO"]
 				
+# Check incumbents that we know are no longer running, since they may still appear
+# in the FEC data.
+not_running = set()
+for line in csv.reader(open("data/not_an_incumbent.txt"), delimiter="\t", quotechar=None):
+	if line[2] != "":
+		not_running.add(line[2])
+	
 # Get the most up-to-date information from the FEC, adding in any candidates
 # missing from OpenSecrets and creating the master list of the running candidates.
 candidates = { }
 for line in csv.reader(open("data/webl12.txt"), delimiter="|", quotechar=None):
 	if line[0][0] != "H": continue # we only care about House candidates
 	if line[19].strip() == "": continue # no district identified?
+	if line[0] in not_running: continue
 	if line[0] not in candidate_info:
 		# If there was no OpenSecrets record for this candidate, add a new record.
 		# Clean names: make first-last format and force to title case.
@@ -64,18 +72,20 @@ for line in csv.reader(open("data/cands10.txt"), delimiter=",", quotechar="|"):
 # Add 2010 election results by candidate.
 # The first entry for a district is the winner.
 results10_last_district = (None, None)
-last_can_id = None
 for line in csv.reader(open("data/results10.csv"), delimiter=",", quotechar="\""):
-	if last_can_id == line[4]: continue # candidates are repeated if they ocurred in more than one party, but this will confuse the won/loss check
-	last_can_id = line[4]
 	is_winner = (results10_last_district != (line[2], line[3]))
 	results10_last_district = (line[2], line[3])
 	if line[4] not in ran2010map: continue
 	can = candidate_info[ran2010map[line[4]]]
-	can["RAN2010"]["WON"] = is_winner
+	
+	# candidates are repeated if they ran in more than one party, which will confuse is_winner.
+	# to do this correctly, only set WON if this is the first time we're seeing this candidate.
+	if "WON" not in can["RAN2010"]: can["RAN2010"]["WON"] = is_winner 
 	if line[16] == "": continue # ran in primary only?
-	can["RAN2010"]["VOTESABS"] = int(line[15].replace(",", ""))
-	can["RAN2010"]["VOTESPCT"] = float(line[16].replace("%", ""))
+	
+	# candidates that run in more than one party should have their vote totals summed across parties(?)
+	can["RAN2010"]["VOTESABS"] = can["RAN2010"].get("VOTESABS", 0) + int(line[15].replace(",", ""))
+	can["RAN2010"]["VOTESPCT"] = can["RAN2010"].get("VOTESPCT", 0) + float(line[16].replace("%", ""))
 
 # Sort the candidates in each district.
 for district in candidates.values():

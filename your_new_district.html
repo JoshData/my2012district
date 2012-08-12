@@ -89,12 +89,13 @@
       	  border-left: 2px solid black;
       }
       
-      .turbovote {
-      	  margin: 2em 0 2em 0;
+      .notes {
+      	  margin: 2em 0 0 0;
       	  border-top: 1px solid #EEE;
       	  border-bottom: 1px solid #EEE;
-      	  padding: 2em 0 2em 0;
-      	  font-size: 90%;
+      	  padding: 1em 0 1em 0;
+      	  font-size: 80%;
+      	  color: #777;
       }
     </style>
     <link href="/static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -113,9 +114,14 @@
   var right_district = null;
   
   function go(newaddr) {
-  	    if (newaddr) $('#address').val(newaddr);
+  	    var addr = $('#address').val();
   	  
-  	    if ($('#address').val() == "") {
+  	    if (newaddr) {
+  	    	$('#address').val(newaddr);
+  	    	addr = newaddr;
+  	    }
+  	    
+  	    if (addr == "") {
   	    	$('.intro-only').fadeIn();
   	    	return;
   	    }
@@ -123,9 +129,19 @@
   	    left_district = null;
   	    right_district = null;
   	    
+  	    if (/^[a-zA-Z][a-zA-Z]-\d\d?$/.test(addr)) {
+		    var state = addr.split("-")[0].toLowerCase();
+		    var distr = addr.split("-")[1];
+		    if (distr.length == 1) distr = "0" + distr;
+  	    	
+  	    	load_left_data({ external_id: state + "-" + distr }, true);
+  	    	load_right_data({ external_id: state + "-" + distr }, true);
+  	    	return;
+  	    }
+  	    
 		var geocoder = new google.maps.Geocoder();
 		geocoder.geocode(
-			{ 'address': $('#address').val() },
+			{ 'address': addr },
 			function(results, status) {
 				if (status != google.maps.GeocoderStatus.OK) {
 					$('.hero-unit .error').text("I didn't understand that address.").fadeIn();
@@ -166,12 +182,16 @@
 	
   }
   
-  function load_left_data(rec) {
+  function load_left_data(rec, artificial) {
   	  if (rec == "NONE") {
   	  	  $('.results').hide();
 		  $('.hero-unit .error').text("That location does not seem to be located in a United States Congressional District.").fadeIn();
 		  return;
   	  }
+  	  
+  	  $('#left_result h2').text(
+  	  	  !artificial ? "In 2010 you voted in..."
+  	  	  : "In the old...");
   	  
   	  left_district = rec.external_id;
   	  
@@ -197,8 +217,12 @@
 				n.find('a').attr('href', res.REP.link).text(res.REP.name);
 				$('#left_result .info').append(n);
 				
-				$('#left_result .info').append($('<img class="name"/>').attr('src', 'http://www.govtrack.us/data/photos/' + res.REP.id + '-100px.jpeg'));
+				$('#left_result .info').append($('<img class="name" width="100" height="125"/>').attr('src', '/static/rep_photos/' + res.REP.id + '-100px.jpeg'));
 				$('#left_result .info').append($('<p>...until the new Members of Congress take office in January.</p>'));
+				
+				if (res.STATUS) {
+					$('#left_result .info').append($('<p></p>').text(res.REP.lastname + " is not on the ballot in 2012 because " + (res.REP.gender == "male" ? "he" : "she") + " " + res.STATUS + "."));
+				}
 			}
 		});
 	  
@@ -206,13 +230,17 @@
   	  show_results();
   }
   
-  function load_right_data(rec) {
+  function load_right_data(rec, artificial) {
   	  if (left_district && rec == "NONE") {
   	  	  $('.results').hide();
 		  $('.hero-unit .error').text("We are missing information on that location.").fadeIn();
 		  return;
   	  }
   	  
+  	  $('#right_result h2').text(
+  	  	  !artificial ? "You’ll vote this November in..."
+  	  	  : "Here is the new...");
+
   	  right_district = rec.external_id;
   	  
 	  var state = rec.external_id.split("-")[0];
@@ -231,7 +259,7 @@
 					return;
 				}
 				
-				$('#right_result .info').append($('<p/>').text(res.length + " candidates want to be your representative in 2013-2014:"));
+				$('#right_result .info').append($('<p/>').text("These " + res.length + " candidates want to be your representative in 2013-2014:"));
 				
 				var incumbent_count = 0;
 				for (var i = 0; i < res.length; i++) {
@@ -255,9 +283,9 @@
 					if (can.RAN2010) {
 						if (can.RAN2010.WON) {
 							var votepct = "";
-							/*if (can.RAN2010.VOTEPCT) {
-								votepct = " --- Won with " + can.RAN2010.VOTEPCT + "% of the vote.";
-							}*/
+							if (can.RAN2010.VOTESPCT) {
+								votepct = " --- Won in 2010 with " + Math.round(can.RAN2010.VOTESPCT) + "% of the vote.";
+							}
 							
 							if (can.RAN2010.DISTRICT == left_district.replace("-", "").toUpperCase()) {
 								if (left_district == right_district) {
@@ -272,10 +300,15 @@
 						} else if (can.GOVTRACK_INFO) {
 							n.find('.status').addClass('returning').text("Previously served in Congress");
 						} else {
+							var votepct = "";
+							if (can.RAN2010.VOTESPCT) {
+								votepct = ", who lost in 2010 with " + Math.round(can.RAN2010.VOTESPCT) + "% of the vote.";
+							}
+							
 							if (can.RAN2010.DISTRICT == left_district.replace("-", "").toUpperCase()) {
-								n.find('.status').addClass('returning').text("Returning challenger in your district from 2010");
+								n.find('.status').addClass('returning').text("Returning challenger in your district from 2010" + votepct);
 							} else {
-								n.find('.status').addClass('returning').text("Ran in " + can.RAN2010.DISTRICT + " in 2010");
+								n.find('.status').addClass('returning').text("Ran in " + can.RAN2010.DISTRICT + " in 2010" + votepct);
 							}
 						}
 					} else {
@@ -370,7 +403,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Your 2012 District</a>
+          <a class="brand" href="/">My 2012 District</a>
           <div class="nav-collapse">
             <ul class="nav">
               <!--<li class="active"><a href="#">Home</a></li>-->
@@ -387,7 +420,7 @@
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit" style="padding: 30px">
-        <h1 style="text-align: center">Find Your 2012 District</h1>
+        <h1 style="text-align: center">Find My 2012 District</h1>
         <div style="margin: 30px auto 0 auto; max-width: 620px;">
         	<p class="intro-only" style="margin-bottom: 1.5em;">Let&rsquo;s find your <b>current</b> congressional district and the congressional district you&rsquo;ll be voting in this <b>November</b>.</p>
         	<p><input id="address" type="text" placeholder="enter your address and then click next" style="width: 100%; height: 36px; font: 28px/32px Verdana,Arial,sans-serif bold;"/></p>
@@ -398,7 +431,7 @@
         		<a href="#" onclick="go($(this).text()); return false;">Plainview, NY</a> |
         		<a href="#" onclick="go($(this).text()); return false;">Vallejo, CA</a> |
         		<a href="#" onclick="go($(this).text()); return false;">08544</a> |
-        		<a href="#" onclick="go($(this).text()); return false;">Tallahassee</a>
+        		<a href="#" onclick="go($(this).text()); return false;">CA-21</a>
         	</p>
         </div>
       </div>
@@ -423,7 +456,11 @@
           
           <div class="info"> </div>
           
-          <p class="turbovote">Make sure you&rsquo;re ready to vote by registering to vote on <a href="https://turbovote.org/register/start">TurboVote</a>.</p>
+          <div class="notes">
+	          <p>Your new district number is based on the best information we have available right now. Districts may still be subject to change. Check your voter registration before the election to be sure.</p>
+          
+          	<p>Make sure you&rsquo;re ready to vote by registering to vote on <a href="https://turbovote.org/register/start">TurboVote</a>.</p>
+          </div>
         </div>
         </div>
       </div>
@@ -444,19 +481,20 @@
       <hr>
 
       <footer>
-        <p>A project of <a href="http://www.civicimpulse.com">Civic Impulse, LLC</a>.</p>
-        <p>Sources:
-        	<a href="http://www.srrproject.org/resources/redistricting-shapefiles/">The SRR Project</a>/Brennan Center,
-        	<a href="http://www.census.gov/geo/www/tiger/tgrshp2011/tgrshp2011.html">United States Census Bureau</a>,
-        	<a href="http://www.opensecrets.org">Center for Responsive Politics</a>,
-        	<a href="http://www.fec.gov/finance/disclosure/ftpsum.shtml">Federal Election Commission</a>,
-        	<a href="http://www.govtrack.us">GovTrack.us</a>.
+        <p>A project of <a href="http://www.civicimpulse.com">Civic Impulse, LLC</a> | <a href="http://twitter.com/govtrack">@GovTrack</a> | <a href="mailto:&#111;&#112;&#101;&#114;&#097;&#116;&#105;&#111;&#110;&#115;&#064;&#103;&#111;&#118;&#116;&#114;&#097;&#099;&#107;&#046;&#117;&#115;?subject=My%202012%20District">&#111;&#112;&#101;&#114;&#097;&#116;&#105;&#111;&#110;&#115;&#064;&#103;&#111;&#118;&#116;&#114;&#097;&#099;&#107;&#046;&#117;&#115;</a>.</p>
+        <p>Redistricting boundaries from the
+        	<a href="http://www.srrproject.org/resources/redistricting-shapefiles/">The SRR Project</a>/Brennan Center and the 50 states. Current district boundaries from the
+        	<a href="http://www.census.gov/geo/www/tiger/tgrshp2011/tgrshp2011.html">United States Census Bureau</a>. Candidate information from the
+        	<a href="http://www.opensecrets.org">Center for Responsive Politics</a> and the
+        	<a href="http://www.fec.gov/finance/disclosure/ftpsum.shtml">Federal Election Commission</a>.
+        	Current representative information from <a href="http://www.govtrack.us">GovTrack.us</a>.
+        	List of retiring/resigned/etc. representatives from <a href="http://www.rollcall.com/politics/casualtylist.html">Roll Call</a>.
         </p>
-        <p>Site based on:
+        <p>This site is created using
         	<a href="https://github.com/tauberer/represent-boundaries">represent-boundaries</a>,
         	<a href="https://github.com/tauberer/boundaries_us">boundaries_us</a>,
         	<a href="https://developers.google.com/maps/documentation/javascript/">Google Maps API</a>,
-        	<a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>.
+        	and <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>.
 		</p>
       </footer>
 
