@@ -1,0 +1,43 @@
+My 2012 District
+================
+
+A website showing your old and new U.S. congressional district.
+
+Data
+----
+
+To build the data, you'll need:
+
+data/webl12.txt
+	The FEC's latest candidate summary file.
+	ftp://ftp.fec.gov/FEC/2012/webl12.zip
+
+data/results10.csv
+	Get the FEC's 2010 election results summary file, an Excel file,
+	and re-save it in CSV format.
+	http://www.fec.gov/pubrec/fe2010/federalelections2010.shtml
+	
+data/cands12.txt
+	OpenSecret's 2012 campaign financ data file, CampaignFin12.zip.
+	http://www.opensecrets.org/MyOS/bulk.php
+	
+data/cands10.txt
+	OpenSecret's 2010 campaign financ data file, CampaignFin10.zip.
+	http://www.opensecrets.org/MyOS/bulk.php
+	
+Build
+-----
+
+Run:
+
+  python make_old_district_info.py
+  python make_new_district_info.py
+  
+Run
+---
+
+  Run the HTTP server:
+  
+    python httpd.py
+    
+
