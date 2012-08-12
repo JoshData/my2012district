@@ -1,0 +1,61 @@
+CRP_ID	GOVTRACK_ID	FEC_ID	Name	Status according to Roll Call, as of Aug 12, 2012 (http://www.rollcall.com/politics/casualtylist.html)
+N00027522	412218	H6NV02164	Dean Heller (R-Nev.)	was appointed to Senate office
+N00009677	400005	H0MO02148	Todd Akin (R-Mo.)	is running for Senate office
+N00004367	400013	H8WI00018	Tammy Baldwin (D-Wis.)	is running for Senate office
+N00031629	412458	H0ND00135	Rick Berg (R-N.D.)	is running for Senate office
+N00009818	400024	H8NV01071	Shelley Berkley (D-Nev.)	is running for Senate office
+N00026586	412205	H4IN02101	Joe Donnelly (D-Ind.)	is running for Senate office
+N00009573	400134	H0AZ01184	Jeff Flake (R-Ariz.)	is running for Senate office
+N00029835	412281	H8NM01224	Martin Heinrich (D-N.M.)	is running for Senate office
+N00028139	412200	H6HI02251	Mazie Hirono (D-Hawaii)	is running for Senate office
+N00006981	400562	H4FL14059	Connie Mack IV (R-Fla.)	is running for Senate office
+N00027566	412194		Christopher Murphy (D-Conn.)	is running for Senate office
+N00004645	400335	H0MT00033	Denny Rehberg (R-Mont.)	is running for Senate office
+N00007033	400133	H2CA50034	Bob Filner (D-Calif.)	is running for mayor of San Diego
+N00003765	400315	H8IN02060	Mike Pence (R-Ind.)	is running for governor of Indiana
+N00001143	400003	H4NY07011	Gary Ackerman (D-N.Y.)	is retiring
+N00029412	412265	H8OH07065	Steve Austria (R-Ohio)	is retiring
+N00026481	400645	H4OK02089	Dan Boren (D-Okla.)	is retiring
+N00000010	400055	H2IN06023	Dan Burton (R-Ind.)	is retiring
+N00024874	400065	H2CA18056	Dennis Cardoza (D-Calif.)	is retiring
+N00004956	400082	H8IL21021	Jerry Costello (D-Ill.)	is retiring
+N00007918	400109	H6WA06021	Norm Dicks (D-Wash.)	is retiring
+N00006932	400115	H8CA35032	David Dreier (R-Calif.)	is retiring
+N00000275	400140	H0MA04036	Barney Frank (D-Mass.)	is retiring
+N00007231	400144	H6CA21028	Elton Gallegly (R-Calif.)	is retiring
+N00005960	400152	H8TX20077	Charlie Gonzalez (D-Texas)	is retiring
+N00007584	400176	H6CA02010	Wally Herger (R-Calif.)	is retiring
+N00001222	400178	H2NY26080	Maurice Hinchey (D-N.Y.)	is retiring
+N00012890	400207	H0IL15053	Timothy Johnson (R-Ill.)	is retiring
+N00004070	400216	H6MI07108	Dale Kildee (D-Mich.)	is retiring
+N00003545	400235	H4OH19036	Steven LaTourette (R-Ohio)	is retiring
+N00007087	400239	H8CA37079	Jerry Lewis (R-Calif.)	is retiring
+N00025093	400280	H2NC13029	Brad Miller (D-N.C.)	is retiring
+N00002327	400288	H4NC09106	Sue Myrick (R-N.C.)	is retiring
+N00000143	400301	H2MA01020	John Olver (D-Mass.)	is retiring
+N00005906	400311	H6TX22101	Ron Paul (R-Texas)	is retiring
+N00009719	400321	H0PA19053	Todd Platts (R-Pa.)	is retiring
+N00009571	400345	H0AR04038	Mike Ross (D-Ark.)	is retiring
+N00027655	412225	H6NC11172	Heath Shuler (D-N.C.)	is retiring
+N00001082	400409	H2NY11017	Edolphus Towns (D-N.Y.)	is retiring
+N00007458	400436	H2CA01045	Lynn Woolsey (D-Calif.)	is retiring
+N00027664	412231	H6PA04110	Jason Altmire (D-Pa.)	was defeated in the 2012 primaries
+N00005181	400638	H0MO00019	Russ Carnahan (D-Mo.)	was defeated in the 2012 primaries
+N00031945	412440	H0MI13398	Hansen Clarke (D-Mich.)	was defeated in the 2012 primaries
+N00001469	400183	H2PA06080	Tim Holden (D-Pa.)	was defeated in the 2012 primaries
+N00003572	400227		Dennis Kucinich (D-Ohio)	was defeated in the 2012 primaries
+N00004905	400252	H0IL16085	Don Manzullo (R-Ill.)	was defeated in the 2012 primaries
+N00006067	400337	H6TX00115	Silvestre Reyes (D-Texas)	was defeated in the 2012 primaries
+N00008619	400346	H6NJ09165	Steven Rothman (D-N.J.)	was defeated in the 2012 primaries
+N00027526	412010	H6OH02086	Jean Schmidt (R-Ohio)	was defeated in the 2012 primaries
+N00013847	400392	H2OK01093	John Sullivan (R-Okla.)	was defeated in the 2012 primaries
+N00032601	412499	H0NY09072	Bob Turner (R-N.Y.)	ran for the Senate but lost in the 2012 primaries
+N00024862	400633	H2KY04071	Geoff Davis (R-Ky.)	resigned
+N00027829	412188	H6AZ08038	Gabrielle Giffords (D-Ariz.)	resigned
+N00006750	400166	H2CA27107	Jane Harman (D-Calif.)	resigned
+N00001725	400193	H2WA04090	Jay Inslee (D-Wash.)	resigned
+N00030198	412291	H8NY26095	Chris Lee (R-N.Y.)	resigned
+N00013808	400260	H2MI00037	Thaddeus McCotter (R-Mich.)	resigned
+N00001110	400426	H8NY09091	Anthony Weiner (D-N.Y.)	resigned
+N00009824	400437		David Wu (D-Ore.)	resigned
+N00000716	400312	H0NJ10026	Donald Payne (D-N.J.)	died
