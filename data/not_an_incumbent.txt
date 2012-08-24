@@ -49,6 +49,7 @@ N00006067	400337	H6TX00115	Silvestre Reyes (D-Texas)	was defeated in the 2012 pr
 N00008619	400346	H6NJ09165	Steven Rothman (D-N.J.)	was defeated in the 2012 primaries
 N00027526	412010	H6OH02086	Jean Schmidt (R-Ohio)	was defeated in the 2012 primaries
 N00013847	400392	H2OK01093	John Sullivan (R-Okla.)	was defeated in the 2012 primaries
+N00002782	400388	H8FL06056	Cliff Stearns (R-F.L.)	was defeated in the 2012 primaries
 N00032601	412499	H0NY09072	Bob Turner (R-N.Y.)	ran for the Senate but lost in the 2012 primaries
 N00024862	400633	H2KY04071	Geoff Davis (R-Ky.)	resigned
 N00027829	412188	H6AZ08038	Gabrielle Giffords (D-Ariz.)	resigned
