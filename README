@@ -37,6 +37,7 @@ Build
 
 Run:
 
+  mkdir -p static/districts
   python make_old_district_info.py
   python make_new_district_info.py
   

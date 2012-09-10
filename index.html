@@ -153,6 +153,7 @@
   
   	    old_district = null;
   	    new_district = null;
+  	    geocoder_result = null;
   	    
   	    if (/^[a-zA-Z][a-zA-Z]-\d\d?$/.test(addr)) {
 		    var state = addr.split("-")[0].toLowerCase();
@@ -192,7 +193,7 @@
 
 				function load_district(layer, callback) {
 					$.ajax(
-						"/boundaries/" + layer + "/?contains=" + results[0].geometry.location.lat() + "," + results[0].geometry.location.lng(),
+						"/boundaries/" + layer + "/?contains=" + geocoder_result.lat() + "," + geocoder_result.lng(),
 						{
 							success: function(res) {
 								if (res.objects.length > 0)
@@ -380,7 +381,7 @@
 	// Create a map.
 	var myOptions = {
 		zoom: 4,
-		center: new google.maps.LatLng(38, -96),
+		center: geocoder_result ? geocoder_result : new google.maps.LatLng(38, -96),
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		panControl: false,
 		zoomControl: true,
@@ -408,12 +409,13 @@
 	});
 	map.overlayMapTypes.insertAt(0, overlay);
 
-	$.ajax("/boundaries/" + src,
+	$.ajax("/boundaries/" + src + "/",
 		{
 			success: function(res) {
 				if (res && res.extent) {
 					var b = new google.maps.LatLngBounds(new google.maps.LatLng(res.extent[1], res.extent[0]), new google.maps.LatLng(res.extent[3], res.extent[2]));
 					map.fitBounds(b);
+					if (geocoder_result) map.setCenter(geocoder_result); // once the right zoom is set with fitBounds, move to the address so the two maps line up
 				}
 			}
 		});
