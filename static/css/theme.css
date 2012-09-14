@@ -149,7 +149,7 @@ p {
 }
 
 footer {
-	padding-top: 3em;
+	padding: 3em 20px 10px 20px;
 	font-size: 75%;
 	color: #666;
 }
@@ -249,7 +249,7 @@ input[type="color"].large,
 		margin-left: 20px;
 	}
 #masthead {
-    background: #40a4bd url(../img/masthead-blue-gradient.jpg) 50% top no-repeat;
+    background: #37a276 url(../img/masthead-blue-gradient.jpg) 50% top no-repeat;
     padding: 40px 0 20px;
     color: #C0E7EF;
 }
@@ -435,10 +435,21 @@ p.try {
 }
 
 @media (max-width: 767px){
-	#masthead{
-		margin-right: -20px;
-		margin-left: -20px;
+	body {
+		padding: 0;
+	}
+	#masthead, #header, .results {
 		padding-left: 20px;
 		padding-right: 20px;
 	}
+}
+
+@media (max-width: 480px){
+	#masthead {
+	    background: #37a276 url(../img/masthead-blue-gradient-480.jpg) 50% top no-repeat;
+	}
+	#header .nav-links { display: none; }
+}
+@media (max-width: 480px){
+	#masthead h1 { font-size: 2em; }
 }
