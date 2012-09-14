@@ -10,120 +10,8 @@
     <!-- Le styles -->
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-      }
-      
-      a {
-          color: #939;
-      }
-      
-      .hero-unit {
-      	  margin-toptter bo: 20px;
-      }
-      .hero-unit h1 {
-      	  display: none; /* huh, it's simpler without an h1 */
-      }
-      
-      .gutter {
-      	  border-left: 1px solid #CCC;
-      	  padding-left: 2em;
-      }
-      
-      p {
-        line-height: 140%;
-      }
-      
-      .row.results {
-          margin-top: 1.5em;
-          border-top: 1px solid #CCC;
-          padding-top: 1.5em;
-      }
-        .row.results.number {
-            border: none;
-        }
-        .row.results h2 {
-            line-height: 130%;
-        }
-        .row.results h2 i {
-            display: block;
-        }
-      
-      .your_district {
-      	  padding: .66em .33em .66em .33em;
-      	  background-color: #EEE;
-      	  border: 1px solid #F3F3F3;
-      	  text-align: center;
-      }
-      .your_district div.large {
-          margin-top: .5em;
-      	  font-family: Verdana, Arial, sans-serif;
-      	  font-size: 22px;
-      	  font-weight: bold;
-      }
-      
-      .results.candidates .old p.name {
-      	  margin-top: 1em;
-      	  font-weight: bold;
-      	  text-align: center;
-      }
-      	.results.candidates .old p.name a {
-      		color: #303;
-      		text-decoration: underline;
-      	}
-      .results.candidates .old img.name {
-      	  display: block;
-      	  width: 100px;
-      	  margin: 10px auto 2em auto;
-      	  border: 1px solid black;
-      }
-      
-      .maps p {
-      	  padding: 0 0 1.5em 0;
-      }
-      
-      .candidate {
-      	  margin: 2em 0 0 1em;
-      }
-      .candidate .party {
-      	  margin: 5px 0 5px 0;
-      	  font-size: 95%;
-      	  font-style: italic;
-      	  color: #444;
-      }
-      .candidate .name a {
-      	  font-size: 105%;
-      	  font-weight: bold;
-      	  color: #303;
-      }
-      	.candidate.party_d .name a { color: #0041a1; }
-      	.candidate.party_r .name a { color: #e60e13; }
-      .candidate .status {
-      	  margin-top: 3px;
-      	  margin-left: 2px;
-      	  border-left: 1px solid #555;
-      	  padding-left: 5px;
-      }
-      .candidate .status.important {
-      	  border-left: 2px solid black;
-      }
-      
-      .notes {
-      	  font-size: 85%;
-      	  color: #777;
-      }
-      
-      footer {
-      	  padding-top: 3em;
-      	  font-size: 75%;
-      	  color: #888;
-      }
-    </style>
-    <link href="/static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/static/css/theme.css" rel="stylesheet">
+   
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -170,7 +58,7 @@
 		geocoder.geocode(
 			{ 'address': addr },
 			function(results, status) {
-				$('#gobtn').text("Next »").removeClass("disabled");
+				$('#gobtn').text("Show my district »").removeClass("disabled");
 				
 				if (status != google.maps.GeocoderStatus.OK) {
 					$('.hero-unit .error').text("I didn't understand that address.").fadeIn();
@@ -227,7 +115,7 @@
 	  var state = rec.external_id.split("-")[0];
 	  var distr = rec.external_id.split("-")[1]; // don't do parseInt if value has leading zeroes
 	  
-	  $(".results.number .old .dist-num").text(distr);
+	  $(".results.number .old .dist-num").text(distr == "00" ? "At Large" : distr);
 	  $(".results.number .old .dist-state").text(state.toUpperCase());
 	  
 	  var container = $(".results.candidates .old");
@@ -276,7 +164,7 @@
 	  var state = rec.external_id.split("-")[0];
 	  var distr = rec.external_id.split("-")[1]; // don't do parseInt if value has leading zeroes
 	  
-	  $(".results.number .new .dist-num").text(distr);
+	  $(".results.number .new .dist-num").text(distr == "00" ? "At Large" : distr);
 	  $(".results.number .new .dist-state").text(state.toUpperCase());
 
 	  var container = $('.results.candidates .new');
@@ -431,47 +319,61 @@
   </script>
 
   <body>
+  	<div id="header">
+  		<div class="container">
+	  		<div class="row">
+	  			<a href="/" id="logo" class="span4">My2012District.com</a>
+	  			<div class="span4 offset4">
+	  				<ul class="nav-links">
+	  					<li><a href="http://www.govtrack.us/" title="GovTrack.us">GovTrack.us</a></li>
+	  					<li><a href="http://www.civicimpulse.com/" title="Civic Impulse, LLC">Civic Impulse, LLC</a></li>
+	  				</ul>
+	  			</div>
+	  		</div>
+	  	</div>
+	</div><!-- /header -->
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/">My2012District.com</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <!--<li class="active"><a href="#">Home</a></li>-->
-              <!--<li><a href="#about" onclick="$(window).scrollTo($('#about').offset().top); return false;">About</a></li>-->
-              <li><a href="http://www.govtrack.us">GovTrack.us</a></li>
-              <li><a href="http://www.civicimpulse.com">Civic Impulse, LLC</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
+    
 
+
+  <!-- Main hero unit for a primary marketing message or call to action -->
+	<div id="masthead">
+		<div class="container">
+			<div class="row">
+				<h1 class="span8 offset2">Congressional districts have changed!</h1>
+			</div>
+			<div class="row">
+				<p class="intro-only span8 offset2">Let&rsquo;s find your <b>current</b> congressional district and the congressional district you&rsquo;ll be voting in this <b>November</b>.</p>
+				<div class="span8 offset2">
+					<div class="input-append" id="search-bar">
+						<input class="large span6" id="address" name="Address" type="text" placeholder="Enter your address"><a id="gobtn" class="btn btn-primary btn-large" onclick="go(); return false;">Show my district &raquo;</a>
+					</div>
+					<p class="try">Try:
+						<a href="#" onclick="go($(this).text()); return false;">Des Moines, IA</a> |
+						<a href="#" onclick="go($(this).text()); return false;">Plainview, NY</a> |
+						<a href="#" onclick="go($(this).text()); return false;">Vallejo, CA</a> |
+						<a href="#" onclick="go($(this).text()); return false;">08544</a> |
+						<a href="#" onclick="go($(this).text()); return false;">CA-21</a>
+					</p>
+				</div>
+
+				<p class="error" style="display: none; color: red; font-weight: bold;"> </p>
+			</div>
+
+			<div id="whats-this" class="row">
+				<div class="span8 offset2">
+					<a id="open-link" href="#" data-toggle="collapse" data-target="#explain">What's the purpose of this tool?</a>
+					 
+					<div id="explain" class="collapse">
+						<p>Due to redistricting, many congressional districts have changed for 2012, which could mean you will be voting in a different district than before.</p>
+						<p>This tool gives you an easy way to get the low down on your current congressional district and its candidates. Simply enter your address and click "Show my district", and it will show you your current district, its candidates, and what's changed (if anything) with the redistricting.</p>
+					</div>
+				</div>
+			</div>
+		</div><!-- /container -->
+	</div><!-- /masthead -->
+    
     <div class="container">
-
-      <!-- Main hero unit for a primary marketing message or call to action -->
-      <div class="hero-unit" style="padding: 30px">
-        <h1 style="text-align: center">Find My 2012 District</h1>
-        <div style="margin: 0 auto 0 auto; max-width: 580px;">
-        	<p class="intro-only" style="margin-bottom: 1em; margin-left: 2px">Let&rsquo;s find your <b>current</b> congressional district and the congressional district you&rsquo;ll be voting in this <b>November</b>.</p>
-        	<p style="margin: 0"><input id="address" type="text" placeholder="enter your address and then click next" style="width: 100%; height: 36px; font: 20px/24px Verdana,Arial,sans-serif bold;"/></p>
-        	<p class="error" style="display: none; color: red; font-weight: bold;"> </p>
-        	<p class="try" style="font-size: 80%; margin: 0;">Try:
-        		<a href="#" onclick="go($(this).text()); return false;">Des Moines, IA</a> |
-        		<a href="#" onclick="go($(this).text()); return false;">Plainview, NY</a> |
-        		<a href="#" onclick="go($(this).text()); return false;">Vallejo, CA</a> |
-        		<a href="#" onclick="go($(this).text()); return false;">08544</a> |
-        		<a href="#" onclick="go($(this).text()); return false;">CA-21</a>
-        	</p>
-        	<p style="text-align: right"><a id="gobtn" class="btn btn-warning btn-large" onclick="go(); return false;">Next &raquo;</a></p>
-        </div>
-      </div>
     
       <div class="row results number" style="display: none;">
         <div class="span2">
@@ -529,23 +431,35 @@
         </div>
       </div>
       
-      <footer>
-        <p>A project of <a href="http://www.civicimpulse.com">Civic Impulse, LLC</a> | <a href="http://twitter.com/govtrack">@GovTrack</a> | <a href="mailto:&#111;&#112;&#101;&#114;&#097;&#116;&#105;&#111;&#110;&#115;&#064;&#103;&#111;&#118;&#116;&#114;&#097;&#099;&#107;&#046;&#117;&#115;?subject=My%202012%20District">&#111;&#112;&#101;&#114;&#097;&#116;&#105;&#111;&#110;&#115;&#064;&#103;&#111;&#118;&#116;&#114;&#097;&#099;&#107;&#046;&#117;&#115;</a>.</p>
-        <p>Redistricting boundaries from the
-        	<a href="http://www.srrproject.org/resources/redistricting-shapefiles/">The SRR Project</a>/Brennan Center and the 50 states. Current district boundaries from the
-        	<a href="http://www.census.gov/geo/www/tiger/tgrshp2011/tgrshp2011.html">United States Census Bureau</a>. Candidate information from the
-        	<a href="http://www.opensecrets.org">Center for Responsive Politics</a> and the
-        	<a href="http://www.fec.gov/finance/disclosure/ftpsum.shtml">Federal Election Commission</a>.
-        	Current representative information from <a href="http://www.govtrack.us">GovTrack.us</a>.
-        	List of retiring/resigned/etc. representatives from <a href="http://www.rollcall.com/politics/casualtylist.html">Roll Call</a>.
-        </p>
-        <p>This site is created using
-        	<a href="https://github.com/tauberer/represent-boundaries">represent-boundaries</a>,
-        	<a href="https://github.com/tauberer/boundaries_us">boundaries_us</a>,
-        	<a href="https://developers.google.com/maps/documentation/javascript/">Google Maps API</a>,
-        	and <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>.
-		</p>
-      </footer>
+		<footer>
+			<div class="row">
+				<div class="span4">
+					<p class="by">A project of <a href="http://www.civicimpulse.com">Civic Impulse, LLC</a>.<br/>
+					<a href="http://twitter.com/govtrack">@GovTrack</a> <br/>
+					<a href="mailto:&#111;&#112;&#101;&#114;&#097;&#116;&#105;&#111;&#110;&#115;&#064;&#103;&#111;&#118;&#116;&#114;&#097;&#099;&#107;&#046;&#117;&#115;?subject=My%202012%20District">&#111;&#112;&#101;&#114;&#097;&#116;&#105;&#111;&#110;&#115;&#064;&#103;&#111;&#118;&#116;&#114;&#097;&#099;&#107;&#046;&#117;&#115;</a>.</p>
+					<p class="by">Design by <a href="http://www.villagecreative.com/">VillageCreative</a>.</p>
+				</div>
+				<div class="span4">
+					<p>Redistricting boundaries from the
+			        	<a href="http://www.srrproject.org/resources/redistricting-shapefiles/">The SRR Project</a>/Brennan Center and the 50 states. Current district boundaries from the
+			        	<a href="http://www.census.gov/geo/www/tiger/tgrshp2011/tgrshp2011.html">United States Census Bureau</a>. Candidate information from the
+			        	<a href="http://www.opensecrets.org">Center for Responsive Politics</a> and the
+			        	<a href="http://www.fec.gov/finance/disclosure/ftpsum.shtml">Federal Election Commission</a>.
+			        	Current representative information from <a href="http://www.govtrack.us">GovTrack.us</a>.
+						List of retiring/resigned/etc. representatives from <a href="http://www.rollcall.com/politics/casualtylist.html">Roll Call</a>.
+					</p>
+				</div>
+				<div class="span4">
+					<p>This site is created using
+			        	<a href="https://github.com/tauberer/represent-boundaries">represent-boundaries</a>,
+			        	<a href="https://github.com/tauberer/boundaries_us">boundaries_us</a>,
+			        	<a href="https://developers.google.com/maps/documentation/javascript/">Google Maps API</a>,
+			        	and <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter</a>.
+			        	The <a href="https://github.com/tauberer/my2012district">source</a> for this site is on github.
+					</p>
+				</div>
+			</div>
+		</footer>
 
     </div> <!-- /container -->
 
@@ -553,7 +467,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/static/bootstrap/js/jquery-1.7.2.min.js"></script>
-
+    <script src="/static/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-collapse.js"></script>
     <script>
 	  jQuery.fn.keydown_enter = function(callback) {
 	    return this.each(function(){
@@ -571,6 +486,16 @@
 		  }
 	  });
 	  </script>    
-  </body>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-1190841-4']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+	</body>
 </html>
 

@@ -1,0 +1,444 @@
+/*
+Theme styles for My2012District.com
+*/
+
+@font-face {
+    font-family: 'PTSerif';
+    src: url('../fonts/PTF55F-webfont.eot');
+    src: url('../fonts/PTF55F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/PTF55F-webfont.woff') format('woff'),
+         url('../fonts/PTF55F-webfont.ttf') format('truetype'),
+         url('../fonts/PTF55F-webfont.svg#PTSerifRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'PTSerif';
+    src: url('../fonts/PTF56F-webfont.eot');
+    src: url('../fonts/PTF56F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/PTF56F-webfont.woff') format('woff'),
+         url('../fonts/PTF56F-webfont.ttf') format('truetype'),
+         url('../fonts/PTF56F-webfont.svg#PTSerifItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'PTSerif';
+    src: url('../fonts/PTF75F-webfont.eot');
+    src: url('../fonts/PTF75F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/PTF75F-webfont.woff') format('woff'),
+         url('../fonts/PTF75F-webfont.ttf') format('truetype'),
+         url('../fonts/PTF75F-webfont.svg#PTSerifBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'PTSerif';
+    src: url('../fonts/PTF76F-webfont.eot');
+    src: url('../fonts/PTF76F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/PTF76F-webfont.woff') format('woff'),
+         url('../fonts/PTF76F-webfont.ttf') format('truetype'),
+         url('../fonts/PTF76F-webfont.svg#PTSerifBoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../fonts/OpenSans-Regular-webfont.eot');
+    src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Regular-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../fonts/OpenSans-Italic-webfont.eot');
+    src: url('../fonts/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Italic-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Italic-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Italic-webfont.svg#OpenSansItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../fonts/OpenSans-Bold-webfont.eot');
+    src: url('../fonts/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-Bold-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-Bold-webfont.svg#OpenSansBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../fonts/OpenSans-BoldItalic-webfont.eot');
+    src: url('../fonts/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/OpenSans-BoldItalic-webfont.woff') format('woff'),
+         url('../fonts/OpenSans-BoldItalic-webfont.ttf') format('truetype'),
+         url('../fonts/OpenSans-BoldItalic-webfont.svg#OpenSansBoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src: url('../fonts/icomoon.eot');
+  src: url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/icomoon.svg#icomoon') format('svg'),
+       url('../fonts/icomoon.woff') format('woff'),
+       url('../fonts/icomoon.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+body {
+	padding-bottom: 40px;
+	font-family: OpenSans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	color: #40a4bd;
+	font-family: 'PTSerif', 'Palatino Linotype', 'Times New Roman', Times, serif;
+}
+h2 span, h3 span, h4 span, span span, a em {
+    font-family: PTSerifItalic;
+    font-weight: normal;
+    font-style: normal;    
+    text-transform: none;
+	}
+p+h2,
+ul+h2,
+ol+h2,
+pre+h2 {
+    margin-top: 1.5em;
+}
+
+a {
+    color: #cb4b16;
+    text-decoration: none;
+	}
+a:hover { 
+	color: #664030;
+	}
+
+p {
+	line-height: 140%;
+}
+
+footer {
+	padding-top: 3em;
+	font-size: 75%;
+	color: #666;
+}
+
+select.large,
+input[type="text"].large,
+input[type="password"].large,
+input[type="datetime"].large,
+input[type="datetime-local"].large,
+input[type="date"].large,
+input[type="month"].large,
+input[type="time"].large,
+input[type="week"].large,
+input[type="number"].large,
+input[type="email"].large,
+input[type="url"].large,
+input[type="search"].large,
+input[type="tel"].large,
+input[type="color"].large,
+.uneditable-input.large {
+	height: 36px;
+	padding: 4px;
+	font-size: 20px;
+	line-height: 24px;
+}
+
+
+/* 03. Helper classes ============================== */
+
+.btn-large {
+	padding: 12px 20px;
+	font-size: 18px;
+	line-height: 20px;
+}
+.box,
+.topbox {
+    background: #f3f1e9 url(../images/bg-paper.jpg);
+    border: solid #e7e4dc 1px;
+    -moz-box-shadow:
+        0 0 0 5px #f9f8f4,
+        0 1px 2px 5px rgba(106,106,106,.4);
+    -webkit-box-shadow:
+        0 0 0 5px #f9f8f4,
+        0 1px 2px 5px rgba(106,106,106,.4);
+    box-shadow:
+        0 0 0 5px #f9f8f4,
+        0 1px 2px 5px rgba(106,106,106,.4);
+}
+.topbox {
+  margin: 15px 6px 30px;
+}
+.lt-ie9 .box,
+.lt-ie9 .topbox {
+    box-shadow: none;
+    outline: solid #f9f8f4 5px;
+}
+
+.group:after { /* Set containers to clear their floats */
+    visibility: hidden;
+    display: block;
+    content: "";
+    clear: both;
+    height: 0;
+    }
+* html .group { zoom: 1; } /* IE6 */
+*:first-child+html .group { zoom: 1; } /* IE7 */
+
+
+
+/* 04. Layout styles =============================== */
+#header {
+	font-family: PTSerif;
+	padding: 1em 0;
+	background: #394042;
+	line-height: 1.5em;
+}
+	#header a {
+		color: #fff;
+	}
+	#header a:hover,
+	#header a:active {
+		color: #fff1c9;
+		text-decoration: none;
+	}
+
+	#logo {
+		display: block;
+		font-size: 1.5em;
+	}
+
+	ul.nav-links {
+		float: right;
+		list-style: none;
+	}
+	ul.nav-links li {
+		display: inline;
+		margin-left: 20px;
+	}
+#masthead {
+    background: #40a4bd url(../img/masthead-blue-gradient.jpg) 50% top no-repeat;
+    padding: 40px 0 20px;
+    color: #C0E7EF;
+}
+#masthead a {
+	color: #fff;
+}
+#masthead a:hover {
+	color: #fff1c9;
+}
+#masthead h1 {
+	font-size: 3em;
+	text-align: center;
+	line-height: 1.2em;
+	padding-bottom: .3em;
+	margin-bottom: .3em;
+	border-bottom: solid 1px #c0e7ef;
+	color: #fff;
+    text-shadow: 0 1px 1px #066982;
+}
+
+.intro-only {
+	font-size: 1.2em;
+	color: #fff1c9;
+    text-shadow: 0 1px 1px #066982;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+#search-bar {
+	margin-bottom: 20px;
+}
+
+p.try {
+}
+
+#whats-this {
+	margin-top: 1em;
+}
+
+#masthead #open-link {
+	display: block;
+	width: 250px;
+	text-align: center;
+	margin: 0 auto 10px;
+	padding: 6px 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #55b9d2;
+	color: #fff;
+}
+#masthead #open-link:hover {
+	background: #fff;
+	color: #cb4b16;
+	text-decoration: none;
+}
+
+#explain {
+	font-family: PTSerif;
+	background: #55b9d2;
+	color: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+	#explain p {
+		margin: 0;
+		padding: 20px;
+	}
+	#explain p+p {
+		padding-top: 0;
+	}
+
+
+.gutter {
+	border-left: 1px solid #CCC;
+	padding-left: 2em;
+}
+
+.row.results {
+	margin-top: 1.5em;
+	border-top: 1px solid #CCC;
+	padding-top: 1.5em;
+}
+.row.results.number {
+	border: none;
+}
+.row.results h2 {
+	line-height: 130%;
+	padding-left: 20px;
+}
+.row.results h2 i {
+	display: inline-block;
+	margin-left: -20px;
+	margin-top: 10px;
+}
+
+.your_district {
+	padding: 1em .33em;
+	margin-bottom: 1em;
+	background-color: #f2f0ed;
+	border: 3px solid #ffffff;
+	text-align: center;
+	-webkit-box-shadow: 0 2px 4px rgba(155,175,180,.3);
+	box-shadow: 0 2px 4px rgba(155,175,180,.3);
+	font-family: PTSerif;
+}
+.your_district div.text {
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #8e8778;
+	text-shadow: 0 1px 0 rgba(255,255,255,.8);
+}
+.your_district div.large {
+	margin-top: .5em;
+	margin-bottom: .3em;
+	font-size: 3em;
+	font-weight: bold;
+	color: #cb4b16;
+}
+
+.results.candidates .old p.name {
+	margin-top: 1em;
+	font-weight: bold;
+	text-align: center;
+}
+	.results.candidates .old p.name a {
+		color: #303;
+		text-decoration: underline;
+	}
+.results.candidates .old img.name {
+	display: block;
+	width: 100px;
+	margin: 10px auto 2em auto;
+	border: 3px solid #ffffff;
+	-webkit-box-shadow: 0 2px 4px rgba(155,175,180,.3);
+	box-shadow: 0 2px 4px rgba(155,175,180,.3);
+}
+
+.maps p {
+	padding: 0 0 1.5em 0;
+}
+
+.map-container {
+	border: 3px solid #ffffff;
+	-webkit-box-shadow: 0 2px 4px rgba(155,175,180,.3);
+	box-shadow: 0 2px 4px rgba(155,175,180,.3);
+
+}
+
+.candidate {
+	margin: 2em 0 0 1em;
+}
+.candidate .party {
+	margin: 5px 0 5px 0;
+	font-size: 95%;
+	font-style: italic;
+	color: #444;
+}
+.candidate .name a {
+	font-size: 105%;
+	font-weight: bold;
+	color: #303;
+}
+	.candidate.party_d .name a { color: #0041a1; }
+	.candidate.party_r .name a { color: #e60e13; }
+.candidate .status {
+	margin-top: 3px;
+	margin-left: 2px;
+	border-left: 1px solid #555;
+	padding-left: 5px;
+}
+.candidate .status.important {
+	border-left: 2px solid black;
+}
+
+.notes {
+	font-size: 85%;
+	color: #777;
+}
+
+.by {
+	font-size: 1.25em;
+}
+
+@media (max-width: 767px){
+	#masthead{
+		margin-right: -20px;
+		margin-left: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
