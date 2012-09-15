@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Your New Congressional District in 2012</title>
+    <title>Your New 2012 Congressional District</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Did your congressional district change? Get a quick answer.">
     <meta name="author" content="Civic Impulse LLC">
@@ -52,9 +52,32 @@
   	    	load_new_data({ external_id: state + "-" + distr }, true);
   	    	return;
   	    }
-  	    
-		var geocoder = new google.maps.Geocoder();
+
+		function load_district(layer, callback, geocoder_result) {
+			$.ajax(
+				"/boundaries/" + layer + "/?contains=" + geocoder_result.lat() + "," + geocoder_result.lng(),
+				{
+					success: function(res) {
+						if (res.objects.length > 0)
+							callback(res.objects[0]);
+						else
+							callback("NONE");
+					}
+				}
+			);
+		}
+
+  	    if (/^\@([0-9\-\.]+),([0-9\-\.]+)$/.test(addr)) {
+		    var lng = parseFloat(addr.split(",")[0].substr(1));
+		    var lat = parseFloat(addr.split(",")[1]);
+		    geocoder_result = new google.maps.LatLng(lat,lng);
+			load_district("2010-cd", load_old_data, geocoder_result);
+			load_district("2012-cd", load_new_data, geocoder_result);
+  	    	return;
+  	    }
+		
 		$('#gobtn').text("Loading...").addClass("disabled");
+		var geocoder = new google.maps.Geocoder();
 		geocoder.geocode(
 			{ 'address': addr },
 			function(results, status) {
@@ -79,22 +102,8 @@
 					}
 				}
 
-				function load_district(layer, callback) {
-					$.ajax(
-						"/boundaries/" + layer + "/?contains=" + geocoder_result.lat() + "," + geocoder_result.lng(),
-						{
-							success: function(res) {
-								if (res.objects.length > 0)
-									callback(res.objects[0]);
-								else
-									callback("NONE");
-							}
-						}
-					);
-				}
-				
-				load_district("2010-cd", load_old_data);
-				load_district("2012-cd", load_new_data);
+				load_district("2010-cd", load_old_data, geocoder_result);
+				load_district("2012-cd", load_new_data, geocoder_result);
 			});
 	
   }
@@ -437,8 +446,8 @@
       <footer>
           <div class="row">
               <div class="span4">
-                  <p class="by">A project of <a href="http://www.civicimpulse.com">Civic Impulse, LLC</a>.<br/>
-                  <a href="http://twitter.com/govtrack">@GovTrack</a> <br/>
+                  <p class="by">A project of <a href="http://www.civicimpulse.com">Civic Impulse, LLC.</a></p>
+                  <p>Send feedback to <a href="http://twitter.com/govtrack">@GovTrack</a> or<br/>
                   <a href="mailto:&#111;&#112;&#101;&#114;&#097;&#116;&#105;&#111;&#110;&#115;&#064;&#103;&#111;&#118;&#116;&#114;&#097;&#099;&#107;&#046;&#117;&#115;?subject=My%202012%20District">&#111;&#112;&#101;&#114;&#097;&#116;&#105;&#111;&#110;&#115;&#064;&#103;&#111;&#118;&#116;&#114;&#097;&#099;&#107;&#046;&#117;&#115;</a>.</p>
                   <p class="by">Design by <a href="http://www.villagecreative.com/">VillageCreative</a>.</p>
               </div>
@@ -484,6 +493,12 @@
 		  $("#address").keydown_enter(function() { go(); });
 		  if (window.location.hash != "" && window.location.hash != "#") {
 			  go(window.location.hash.substr(1).replace(/\+/g, " "));
+		  } else {
+			if(navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+				  go("@" + Math.round(position.coords.longitude*1000000)/1000000 + "," + Math.round(position.coords.latitude*1000000)/1000000);
+				});
+			  }		  	  
 		  }
 	  });
 	  </script>    

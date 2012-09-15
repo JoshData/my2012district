@@ -297,7 +297,7 @@ p.try {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	background: #55b9d2;
+	background: #186;
 	color: #fff;
 }
 #masthead #open-link:hover {
@@ -308,7 +308,7 @@ p.try {
 
 #explain {
 	font-family: PTSerif;
-	background: #55b9d2;
+	background: #186;
 	color: #fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -431,7 +431,7 @@ p.try {
 }
 
 .by {
-	font-size: 1.25em;
+	/*font-size: 1.25em;*/
 }
 
 @media (max-width: 767px){
