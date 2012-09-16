@@ -430,6 +430,10 @@ p.try {
 	color: #777;
 }
 
+.maps p.links {
+	margin-top: 1em;
+}
+
 .by {
 	/*font-size: 1.25em;*/
 }

@@ -26,6 +26,9 @@
   var old_district = null;
   var new_district = null;
   
+  var new_data_rec = null;
+  var new_data_artificial = null;
+
   function go(newaddr) {
   	    var addr = $('#address').val();
   	  
@@ -103,7 +106,7 @@
 				}
 
 				load_district("2010-cd", load_old_data, geocoder_result);
-				load_district("2012-cd", load_new_data, geocoder_result);
+				load_district("2012-cd", load_new_data_deferred, geocoder_result);
 			});
 	
   }
@@ -152,13 +155,28 @@
 				}
 			}
 		});
-	  
+
+	  // The new district info loaded first. Now process it.
+	  if (new_data_rec)
+  	  	  load_new_data(new_data_rec, new_data_artificial);
   
   	  show_results();
   }
   
+  function load_new_data_deferred(rec, artificial) {
+  	  // We need the old district info before we load the
+  	  // new district info.
+  	  if (!old_district) {
+		  new_data_rec = rec;
+		  new_data_artificial = artificial;
+		  return;
+  	  } else {
+  	  	  load_new_data(rec, artificial);
+  	  }
+  }
+  
   function load_new_data(rec, artificial) {
-  	  if (old_district && rec == "NONE") {
+  	  if (rec == "NONE") {
   	  	  $('.results').hide();
 		  $('.hero-unit .error').text("We are missing information on that location.").fadeIn();
 		  return;
@@ -230,7 +248,7 @@
 						} else {
 							var votepct = "";
 							if (can.RAN2010.VOTESPCT) {
-								votepct = ", who lost in 2010 with " + Math.round(can.RAN2010.VOTESPCT) + "% of the vote.";
+								votepct = " Lost in 2010 with " + Math.round(can.RAN2010.VOTESPCT) + "% of the vote.";
 							}
 							
 							if (can.RAN2010.DISTRICT == old_district.replace("-", "").toUpperCase()) {
@@ -264,8 +282,8 @@
   	  $('.results').show();
   	  $(window).scrollTop($('.results').offset().top - 200);
 
-  	  var oldmap = make_map("old", "2010-cd/" + old_district, "Here is what your old 2010 district looked like:");
-	  var newmap = make_map("new", "2012-cd/" + new_district, "Here is what your new 2012 district looks like:");
+  	  var oldmap = make_map("old", "2010-cd", old_district, "Here is what your old 2010 district looked like:");
+	  var newmap = make_map("new", "2012-cd", new_district, "Here is what your new 2012 district looks like:");
 	  
 	  //google.maps.event.addListener(oldmap, 'dragend', function() { newmap.fitBounds(oldmap.getBounds()); });
       //google.maps.event.addListener(newmap, 'dragend', function() { oldmap.fitBounds(newmap.getBounds()); });
@@ -273,7 +291,8 @@
 	  window.location.hash = "#" + $('#address').val().replace(/ +/g, "+");
   }
   
-  function make_map(clz, src, descr) {
+  function make_map(clz, layer, distr, descr) {
+    var src = layer + "/" + distr;
       
 	// Create a map.
 	var myOptions = {
@@ -291,7 +310,11 @@
 	node.css({ width: node.width(), height: "320px"});
 	var map = new google.maps.Map(node[0], myOptions);
 	
-	$('.maps .' + clz + ' p').text(descr);
+	$('.maps .' + clz + ' p.intro').text(descr);
+	$('.maps .' + clz + ' p.links').text('');
+	if (clz == "new" && distr.substr(0, 2) == "ny") {
+		$('.maps .' + clz + ' p.links').html('Check out how the district boundaries line up with demographics on the website for the <a href="http://www.urbanresearchmaps.org/nycongress2012/map.html">CUNY Center for Urban Research</a>.');
+	}
 	
 	// Add a tile overlay for this layer.
 	var overlay = new google.maps.ImageMapType({
@@ -372,7 +395,7 @@
 
 			<div id="whats-this" class="row">
 				<div class="span8 offset2">
-					<a id="open-link" href="#" data-toggle="collapse" data-target="#explain">What&rsquo;s the purpose of this tool?</a>
+					<a id="open-link" href="#" data-toggle="collapse" data-target="#explain" onclick="return false;">What&rsquo;s the purpose of this tool?</a>
 					 
 					<div id="explain" class="collapse">
 						<p>Due to redistricting, many congressional districts have changed for 2012, which could mean you will be voting in a different district than before.</p>
@@ -418,12 +441,14 @@
             <h2><i class="icon-map-marker"></i> On A Map</h2>
         </div>
         <div class="span5 new">
-          <p> </p>
+          <p class="intro"> </p>
           <div class="map_container"> </div>
+          <p class="links"> </p>
         </div>
         <div class="span5 old">
-          <p> </p>
+          <p class="intro"> </p>
           <div class="map_container"> </div>
+          <p class="links"> </p>
         </div>
       </div>
 
