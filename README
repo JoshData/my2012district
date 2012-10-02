@@ -8,9 +8,9 @@ Data
 
 To build the data, you'll need:
 
-data/webl12.txt
+data/cn.txt
 	The FEC's latest candidate summary file.
-	ftp://ftp.fec.gov/FEC/2012/webl12.zip
+	ftp://ftp.fec.gov/FEC/2012/cn12.zip
 
 data/cands12.txt
 	OpenSecret's 2012 campaign financ data file, CampaignFin12.zip.

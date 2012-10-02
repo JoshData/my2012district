@@ -41,9 +41,9 @@ for line in csv.reader(open("data/not_an_incumbent.txt"), delimiter="\t", quotec
 # Get the most up-to-date information from the FEC, adding in any candidates
 # missing from OpenSecrets and creating the master list of the running candidates.
 candidates = { }
-for line in csv.reader(open("data/webl12.txt"), delimiter="|", quotechar=None):
-	if line[0][0] != "H": continue # we only care about House candidates
-	if line[19].strip() == "": continue # no district identified?
+for line in csv.reader(open("data/cn.txt"), delimiter="|", quotechar=None):
+	if line[5] != "H": continue # we only care about House candidates
+	if line[6].strip() == "": continue # no district identified?
 	if line[0] in not_running: continue
 	if line[0] not in candidate_info:
 		# If there was no OpenSecrets record for this candidate, add a new record.
@@ -53,10 +53,10 @@ for line in csv.reader(open("data/webl12.txt"), delimiter="|", quotechar=None):
 		candidate_info[line[0]] = {
 			"FEC_ID": line[0],
 			"NAME": name,
-			"PARTY": { "DEM": "Democratic Party", "DFL": "Democratic Party", "GRE": "Green Party", "GRN": "Green Party", "REP": "Republican Party", "LIB": "Libertarian Party", "IND": "Independent", "UNK": "[Party Unknown]", "3": "Other Party", "OTH": "Other Party", "NPA": "[No Party]", "NNE": "[No Party]", "NOP": "[No Party]", "WFP": "Working Families Party"}[ line[4] ],
+			"PARTY": { "DEM": "Democratic Party", "DFL": "Democratic Party", "GRE": "Green Party", "GRN": "Green Party", "REP": "Republican Party", "LIB": "Libertarian Party", "IND": "Independent", "UNK": "[Party Unknown]", "3": "Other Party", "OTH": "Other Party", "NPA": "[No Party]", "NNE": "[No Party]", "NOP": "[No Party]", "UST": "[Unknown]", "WFP": "Working Families Party", "IAP": "[Unknown]", "PG": "[Unknown]", "PAF": "[Unknown]"}.get(line[2], "[Unknown]"),
 		}
 	candidate_info[line[0]]["NAME_SORT"] = line[1]
-	d = line[18] + line[19] # state + district number
+	d = line[4] + line[6] # state + district number
 	candidates.setdefault(d, []).append(candidate_info[line[0]])
 		
 # Did the candidate run last cycle?
