@@ -75,7 +75,7 @@
 		    var lat = parseFloat(addr.split(",")[1]);
 		    geocoder_result = new google.maps.LatLng(lat,lng);
 			load_district("2010-cd", load_old_data, geocoder_result);
-			load_district("2012-cd", load_new_data, geocoder_result);
+			load_district("cd-2012", load_new_data, geocoder_result);
   	    	return;
   	    }
 		
@@ -96,17 +96,21 @@
 				
 				geocoder_result = results[0].geometry.location;
 				
-				for (var i = 0; i < results[0].address_components.length; i++) {
+				/*for (var i = 0; i < results[0].address_components.length; i++) {
 					var ac = results[0].address_components[i];
 					if (ac.types[0] == "administrative_area_level_1" && ac.short_name == "RI") {
 						$('.hero-unit .error').text("Sorry, Rhode Island hasn't made available detailed geographic information for its 2012 districts yet.").fadeIn();
 						$('.results').hide();
 						return;
 					}
+				}*/
+				
+				if (results[0].types[0] == "postal_code") {
+					alert("This ZIP code may be in multiple districts. We are showing one below. Use your complete physical home address for a more accurate resut.");
 				}
 
 				load_district("2010-cd", load_old_data, geocoder_result);
-				load_district("2012-cd", load_new_data_deferred, geocoder_result);
+				load_district("cd-2012", load_new_data_deferred, geocoder_result);
 			});
 	
   }
@@ -292,6 +296,7 @@
   }
   
   function make_map(clz, layer, distr, descr) {
+    if (layer == "2012-cd") layer = "cd-2012";
     var src = layer + "/" + distr;
       
 	// Create a map.
@@ -479,9 +484,10 @@
                   <p class="by">Design by <a href="http://www.villagecreative.com/">VillageCreative</a>.</p>
               </div>
               <div class="span4">
-                  <p>Redistricting boundaries from the
-                      <a href="http://www.srrproject.org/resources/redistricting-shapefiles/">The SRR Project</a>/Brennan Center and the 50 states. Current district boundaries from the
-                      <a href="http://www.census.gov/geo/www/tiger/tgrshp2011/tgrshp2011.html">United States Census Bureau</a>. Candidate information from the
+                  <p>District boundaries from the United States Census Bureau
+                      (<a href="http://www.census.gov/geo/www/tiger/tgrshp2011/tgrshp2011.html">2010 boundaries from TIGER</a>
+                      | <a href="https://www.census.gov/rdo/data/113th_congressional_and_new_state_legislative_district_plans.html">2012 boundaries from Boundary and Annexation Survey</a>).
+                      Candidate information from the
                       <a href="http://www.opensecrets.org">Center for Responsive Politics</a> and the
                       <a href="http://www.fec.gov/finance/disclosure/ftpsum.shtml">Federal Election Commission</a>.
                       Current representative information from <a href="http://www.govtrack.us">GovTrack.us</a>.
